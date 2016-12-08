@@ -14,8 +14,3 @@ defmodule Src do
     rem(x, y) == 0
   end
 end
-
-IO.puts(Src.multiples(10))
-IO.puts(Src.multiples(10) == 23)
-IO.puts(Src.multiples(1000))
-IO.puts(Src.multiples(1000) == 233168)
