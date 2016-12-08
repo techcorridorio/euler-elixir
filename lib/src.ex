@@ -13,4 +13,22 @@ defmodule Src do
   defp divisible_by(x, y) do
     rem(x, y) == 0
   end
+
+  def even_fib_sum(limit) do
+    fibs = Enum.map(1..limit, &fib/1)
+    fibs_below_limit = Enum.filter(fibs, fn (x) -> x < limit end)
+    even_fibs_below_limit = Enum.filter(fibs_below_limit, &even/1)
+    Enum.sum(even_fibs_below_limit)
+  end
+
+  defp even(x) do
+    divisible_by(x, 2)
+  end
+
+  def fib(0), do: 0
+  def fib(1), do: 1
+  def fib(2), do: 2
+  def fib(n) when n >= 3 do
+    fib(n - 2) + fib(n - 1)
+  end
 end
