@@ -1,6 +1,8 @@
 # Src
 
-**TODO: Add description**
+To run:
+
+    docker-compose run app mix test
 
 ## Installation
 
