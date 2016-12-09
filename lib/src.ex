@@ -25,12 +25,12 @@ defmodule Src do
   end
 
   def fib(n) do
-    help_fib(n, 0, 1)
+    fib(n, 0, 1)
   end
 
-  defp help_fib(0, this_fib, _), do: this_fib
-  defp help_fib(remaining, first_fib, second_fib) when remaining > 0 do
+  defp fib(0, this_fib, _), do: this_fib
+  defp fib(remaining, first_fib, second_fib) when remaining > 0 do
     next_fib = first_fib + second_fib
-    help_fib(remaining - 1, second_fib, next_fib)
+    fib(remaining - 1, second_fib, next_fib)
   end
 end
