@@ -24,5 +24,6 @@ defmodule SrcTest do
 
     assert Src.even_fib_sum(21) == 10
     assert Src.even_fib_sum(30) == 10
+    assert Src.even_fib_sum(4_000_000) == 4613732
   end
 end

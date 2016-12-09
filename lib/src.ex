@@ -14,10 +14,13 @@ defmodule Src do
   end
 
   def even_fib_sum(limit) do
-    fibs = Enum.map(1..limit, &fib/1)
-    fibs_below_limit = Enum.filter(fibs, fn (x) -> x < limit end)
-    even_fibs_below_limit = Enum.filter(fibs_below_limit, &even/1)
-    Enum.sum(even_fibs_below_limit)
+    n_where_fib_is_less_than_limit = Enum.take_while(1..limit, fn (n) ->
+      fib(n) < limit
+    end)
+
+    fibs = Enum.map(n_where_fib_is_less_than_limit, &fib/1)
+    even_fibs = Enum.filter(fibs, &even/1)
+    Enum.sum(even_fibs)
   end
 
   defp even(x) do
