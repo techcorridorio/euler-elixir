@@ -24,10 +24,13 @@ defmodule Src do
     divisible_by(x, 2)
   end
 
-  def fib(0), do: 0
-  def fib(1), do: 1
-  def fib(2), do: 2
-  def fib(n) when n >= 3 do
-    fib(n - 2) + fib(n - 1)
+  def fib(n) do
+    help_fib(n, 0, 1)
+  end
+
+  defp help_fib(0, this_fib, _), do: this_fib
+  defp help_fib(remaining, first_fib, second_fib) when remaining > 0 do
+    next_fib = first_fib + second_fib
+    help_fib(remaining - 1, second_fib, next_fib)
   end
 end
