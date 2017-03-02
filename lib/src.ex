@@ -34,6 +34,30 @@ defmodule Src do
     fib(remaining - 1, second_fib, next_fib)
   end
 
+  def largest_prime_factor(x) do
+    prime_factors(x)
+      |> List.last
+  end
+
+  def prime_factors(x) do
+    # first prime less than x?  is it a factor?
+    [5, 7, 13, 29]
+  end
+
+  @doc ~S"""
+    xiex> Src.primes |> Enum.take(5)
+    x[2,3,5,7,11]
+  """
+  def primes do
+    odd? = &(&1 == 2 || rem(&1, 2) != 0)
+    not_three_or_five? = &(!divisible_by_three_or_five(&1))
+
+    # generate primes?
+    Stream.iterate(2, &(1+&1))
+    |> Stream.filter(odd?)
+    |> Stream.filter(not_three_or_five?)
+  end
+
   @doc ~S"""
     iex> Src.prime?(2)
     true
