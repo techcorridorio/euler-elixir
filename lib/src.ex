@@ -48,15 +48,12 @@ defmodule Src do
     iex> Src.prime_factors(600851475143)
     [71, 839, 1471, 6857]
   """
+  def prime_factors(1), do: []
   def prime_factors(number) do
-    if 1 == number do
-      []
-    else
-      factor = Enum.find(2..number, evenly_divides?(number))
-      rest = div(number, factor)
+    factor = Enum.find(2..number, evenly_divides?(number))
+    rest = div(number, factor)
 
-      [factor] ++ prime_factors(rest)
-    end
+    [factor] ++ prime_factors(rest)
   end
 
   @doc ~S"""
