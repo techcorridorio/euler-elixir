@@ -13,6 +13,12 @@ defmodule Src do
     rem(x, y) == 0
   end
 
+  defp evenly_divides?(x) do
+    fn(y) ->
+      0 == rem(x, y)
+    end
+  end
+
   def even_fib_sum(limit) do
     Enum.take_while(1..limit, fn (n) -> fib(n) < limit end)
       |> Enum.map(&fib/1)
@@ -46,11 +52,7 @@ defmodule Src do
     if 1 == number do
       []
     else
-      evenly_divisible = fn(potential_factor) ->
-        0 == rem(number, potential_factor)
-      end
-
-      factor = Enum.find(2..number, evenly_divisible)
+      factor = Enum.find(2..number, evenly_divides?(number))
       rest = div(number, factor)
 
       [factor] ++ prime_factors(rest)
