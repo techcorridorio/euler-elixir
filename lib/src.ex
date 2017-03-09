@@ -34,56 +34,39 @@ defmodule Src do
     fib(remaining - 1, second_fib, next_fib)
   end
 
-  def largest_prime_factor(x) do
-    prime_factors(x)
-      |> List.last
-  end
-
-  def prime_factors(x) do
-    # first prime less than x?  is it a factor?
+  @doc ~S"""
+    iex> Src.prime_factors(6)
+    [2, 3]
+    iex> Src.prime_factors(13195)
     [5, 7, 13, 29]
-  end
-
-  @doc ~S"""
-    xiex> Src.primes |> Enum.take(5)
-    x[2,3,5,7,11]
+    iex> Src.prime_factors(600851475143)
+    [71, 839, 1471, 6857]
   """
-  def primes do
-    odd? = &(&1 == 2 || rem(&1, 2) != 0)
-    not_three_or_five? = &(!divisible_by_three_or_five(&1))
+  def prime_factors(number) do
+    if 1 == number do
+      []
+    else
+      evenly_divisible = fn(potential_factor) ->
+        0 == rem(number, potential_factor)
+      end
 
-    # generate primes?
-    Stream.iterate(2, &(1+&1))
-    |> Stream.filter(odd?)
-    |> Stream.filter(not_three_or_five?)
-  end
+      factor = Enum.find(2..number, evenly_divisible)
+      rest = div(number, factor)
 
-  @doc ~S"""
-    iex> Src.prime?(2)
-    true
-
-    iex> Src.prime?(3)
-    true
-
-    iex> Src.prime?(4)
-    false
-  """
-  def prime?(x) do
-    #length(factors(x)) == 2
-    case factors(x) do
-      [1,^x] -> true
-      _ -> false
+      [factor] ++ prime_factors(rest)
     end
   end
 
   @doc ~S"""
-    iex> Src.factors(2)
-    [1,2]
-
-    iex> Src.factors(4)
-    [1,2,4]
+    iex> Src.largest_prime_factor(6)
+    3
+    iex> Src.largest_prime_factor(13195)
+    29
+    iex> Src.largest_prime_factor(600851475143)
+    6857
   """
-  def factors(x) do
-    (1..x) |> Enum.filter(&( rem(x,&1) == 0))
+  def largest_prime_factor(x) do
+    prime_factors(x)
+      |> List.last
   end
 end
